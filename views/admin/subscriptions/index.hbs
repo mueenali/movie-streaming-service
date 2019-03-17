@@ -1,0 +1,35 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Type</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Price</th>
+        <th scope="col">Availability</th>
+        <th scope="col">Support</th>
+        <th scope="col">Actions</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {{#if subscriptions}}
+        {{#each subscriptions}}
+            <tr>
+                <td>{{this._id}}</td>
+                <td>{{this.type}}</td>
+                <td>{{this.duration}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.availability}}</td>
+                <td>{{this.support}}</td>
+                <td>
+                    <form method="post" action="/admin/subscriptions/delete/{{this._id}}"
+                          enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <a type="button" class="btn btn-primary" href="/admin/subscriptions/edit/{{this._id}}">Edit</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form></td>
+            </tr>
+        {{/each}}
+    {{/if}}
+    </tbody>
+</table>

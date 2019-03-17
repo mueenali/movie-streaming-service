@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Release Year</th>
+        <th scope="col">Running Time</th>
+        <th scope="col">Country</th>
+        <th scope="col">Category</th>
+        <th scope="col">Videos</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#if movies}}
+        {{#each movies}}
+            <tr>
+                <td>{{this._id}}</td>
+                <td>{{this.title}}</td>
+                <td>{{this.releaseYear}}</td>
+                <td>{{this.runningTime}}</td>
+                <td>{{this.country}}</td>
+                <td>{{this.category.name}}</td>
+                <td><a href="/admin/movies/showVideos/{{this._id}}">Show Videos</a></td>
+                <td>
+                    <form method="post" action="/admin/movies/delete/{{this._id}}"
+                          enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <a type="button" class="btn btn-primary" href="/admin/movies/edit/{{this._id}}">Edit</a>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form></td>
+            </tr>
+        {{/each}}
+    {{/if}}
+    </tbody>
+</table>

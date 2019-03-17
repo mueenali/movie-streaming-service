@@ -1,0 +1,37 @@
+<form method="post" action="/admin/movies/updatePath/{{movie._id}}" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="exampleInputPassword1">New Videos</label>
+        <input type="file" name="videos" multiple  id="exampleInputDescription">
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<table class="table">
+<thead>
+<tr>
+    <th scope="col">Path</th>
+    <th scope="col">Video</th>
+    <th scope="col">Delete</th>
+</tr>
+</thead>
+    <tbody>
+    {{#each movie.paths}}
+        <tr>
+            <td>{{this}}</td>
+            <td>
+                <video width="320" height="240" controls>
+                    <source src="/movies/{{this}}" type="video/mp4">
+                </video>
+
+            </td>
+            <!--<td>-->
+            <!--<form method="post" action="/admin/movie/video/delete/{{this._id}}"-->
+            <!--enctype="application/x-www-form-urlencoded">-->
+            <!--<input type="hidden" name="_method" value="DELETE">-->
+            <!--<button type="submit" class="btn btn-danger">Delete</button>-->
+            <!--</form>-->
+            <!--</td>-->
+    {{/each}}
+    </tr>
+    </tbody>
+</table>

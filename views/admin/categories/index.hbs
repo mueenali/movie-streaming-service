@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#if categories}}
+        {{#each categories}}
+            <tr>
+                <td>{{this._id}}</td>
+                <td>{{this.name}}</td>
+                <td><form method="post" action="/admin/categories/delete/{{this._id}}" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <a type="button" href="/admin/categories/edit/{{this._id}}" class="btn btn-primary">Edit</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                </td>
+            </tr>
+        {{/each}}
+    {{/if}}
+    </tbody>
+</table>
