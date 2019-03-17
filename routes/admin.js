@@ -40,5 +40,5 @@ router.get('/movies/edit/:id',adminMoviesController.edit);
 router.delete('/movies/delete/:id',adminMoviesController.remove);
 router.put('/movies/update/:id',adminMoviesController.update);
 router.post('/movies/updatePath/:id',adminMoviesController.updatePaths);
-
+router.delete('/movies/deleteVideo/:path',adminMoviesController.deleteVideo);
 module.exports = router;
