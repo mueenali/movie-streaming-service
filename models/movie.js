@@ -28,6 +28,10 @@ let movieSchema = new Schema({
         required: true,
         ref: 'Category'
     },
+    photoPath:{
+      type: String,
+      required:true
+    },
     subtitlePath :{
         type : String,
     },

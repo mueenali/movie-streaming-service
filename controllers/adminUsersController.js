@@ -24,14 +24,22 @@ const edit = async (req,res) =>{
 };
 
 const update = async (req,res) =>{
-    let userId = req.params.id;
-    let user = User.findById(userId);
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.password = req.body.password;
-    user.role = req.body.role;
-    await user.save();
-    res.redirect('/admin/users');
+    try{
+        let userId = req.params.id;
+        let user = await User.findById(userId).populate('role');
+        user.name = req.body.name;
+        user.email = req.body.email;
+        if (req.body.password !== '') {
+            user.password = req.body.password;
+        }
+        user.role = req.body.role;
+        await user.save();
+        res.redirect('/admin/users');
+    }catch(error){
+        req.flash('error',error.message);
+        res.redirect('back');
+    }
+
 };
 
 const remove = async (req,res) =>{

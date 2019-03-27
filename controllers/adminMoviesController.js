@@ -25,9 +25,9 @@ const remove = async (req,res) =>{
     let movieId = req.params.id;
     let movie  = await Movie.findById(movieId);
     let paths = movie.paths;
-    paths.forEach((path) =>{
+    for(path of paths){
         fs.unlinkSync(`public/movies/${path}`);
-    });
+    }
     movie.remove();
     res.redirect('/admin/movies');
 };
@@ -70,10 +70,14 @@ const update = async (req,res) =>{
 
 const store = async (req,res) =>{
     let paths;
+    let photoPath;
     if(req.files.videos){
-        let uploadedVideos = req.files.videos;
-        paths = uploads(res,'movies',uploadedVideos);
+        paths =  uploads(res,'movies',req.files.videos);
     }
+    if(req.files.photo){
+         photoPath= uploads(res,'images',req.files.photo);
+    }
+
     let movie = new Movie({
         title:req.body.title,
         releaseYear : req.body.releaseYear
@@ -81,6 +85,7 @@ const store = async (req,res) =>{
         country : req.body.country,
         category : req.body.category,
         description : req.body.description,
+        photoPath: photoPath,
         paths : paths
     });
 

@@ -2,7 +2,7 @@ const passport = require('passport');
 
 const loginIndex = (req,res) =>{
     let messages = req.flash('error');
-    res.render('user/login',{layout: null,csrfToken: req.csrfToken(), messages, hasErrors: messages.length > 0});
+    res.render('user/login',{layout: null,title:'Login',csrfToken: req.csrfToken(), messages, hasErrors: messages.length > 0});
 };
 
 const login =  passport.authenticate('local.login',{
@@ -14,7 +14,7 @@ const login =  passport.authenticate('local.login',{
 
 const signUpIndex = (req,res) =>{
     let messages = req.flash('error');
-    res.render('user/signup',{layout: null,csrfToken: req.csrfToken(), messages, hasErrors: messages.length > 0});
+    res.render('user/signup',{layout: null,title: 'Signup',csrfToken: req.csrfToken(), messages, hasErrors: messages.length > 0});
 };
 
 const signUp =  passport.authenticate('local.signup', {

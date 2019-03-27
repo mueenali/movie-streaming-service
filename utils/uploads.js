@@ -1,14 +1,24 @@
 const path = require('path');
-const uploads = (res,dir,uploads) => {
-    let paths = [];
-    uploads.forEach((upload) =>{
-        paths.push(upload.name);
-        upload.mv(path.resolve(`./public/${dir}/${upload.name}`), (err) => {
-            if (err)
-                return res.status(500).send(err);
-        });
+
+const uploads =  (res,dir,uploads) => {
+    if(uploads.constructor === Array){
+        let paths = [];
+        for(let i = 0; i<uploads.length; i++){
+            paths.push(uploads[i].name);
+            uploading(res,dir,uploads[i]);
+        }
+        return paths;
+    }
+     uploading(res,dir,uploads);
+    return uploads.name;
+};
+
+const uploading = (res,dir,upload) =>{
+    upload.mv(path.resolve(`./public/${dir}/${upload.name}`), (error) => {
+        if (error)
+            res.render('error',{message:error.message,error});
     });
-    return paths;
+
 };
 
 module.exports = uploads;
