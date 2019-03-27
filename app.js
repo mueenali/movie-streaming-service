@@ -19,6 +19,8 @@ const app = express();
 const validator = require('express-validator');
 // view engine setup
 
+require('./config/passport');
+
 app.engine('.hbs',expressHbs({defaultLayout: 'layout',extname : '.hbs' }));
 
 app.set('view engine', '.hbs');
@@ -75,7 +77,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{layout:null});
 });
 
 

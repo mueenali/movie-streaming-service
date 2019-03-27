@@ -22,6 +22,7 @@ let userSchema = new Schema({
     },
     role : {
         type : ObjectID,
+        default : null,
         ref : 'Role'
     }
 });

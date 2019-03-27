@@ -1,5 +1,4 @@
 const Subscription = require('../models/subscription');
-const _ = require('lodash');
 
 const index = async (req,res) =>{
     let subscriptions = await Subscription.find();
@@ -10,8 +9,7 @@ const create = (req,res) =>{
 };
 
 const store = async (req,res) =>{
-    let body = _.pick(req.body,['type','duration','price','availability','support']);
-    let subscription = new Subscription(body);
+    let subscription = new Subscription(req.body);
     await subscription.save();
     res.redirect('/admin/subscriptions');
 };
@@ -24,8 +22,7 @@ const edit = async (req,res) =>{
 
 const update = async (req,res) =>{
     let subId = req.params.id;
-    let body = _.pick(req.body,['type','duration','price','availability','support']);
-    await Subscription.findByIdAndUpdate(subId,{$set : body});
+    await Subscription.findByIdAndUpdate(subId,{$set : req.body});
     res.redirect('/admin/subscriptions');
 };
 

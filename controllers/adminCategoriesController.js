@@ -1,5 +1,4 @@
 const Category = require('../models/category');
-const _ = require('lodash');
 const index = async (req,res) =>{
     let categories =  await Category.find();
     res.render('admin/categories/index',{layout: 'admin.hbs',categories});

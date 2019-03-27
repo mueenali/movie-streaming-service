@@ -1,5 +1,4 @@
 const Movie = require('../models/movie');
-const _ = require('lodash');
 
 const fs = require('fs');
 const Category = require('../models/category');
@@ -65,25 +64,23 @@ const edit = async (req,res) =>{
 
 const update = async (req,res) =>{
     let movieId = req.params.id;
-    let body = _.pick(req.body,['title','releaseYear','runningTime','country','category','description']);
-    await Movie.findByIdAndUpdate(movieId,{$set : body});
+    await Movie.findByIdAndUpdate(movieId,{$set : req.body});
     res.redirect('/admin/movies');
 };
 
 const store = async (req,res) =>{
-    let body = _.pick(req.body,['title','releaseYear','runningTime','country','category','description']);
     let paths;
     if(req.files.videos){
         let uploadedVideos = req.files.videos;
         paths = uploads(res,'movies',uploadedVideos);
     }
     let movie = new Movie({
-        title:body.title,
-        releaseYear : body.releaseYear
-        ,runningTime: body.runningTime ,
-        country : body.country,
-        category : body.category,
-        description : body.description,
+        title:req.body.title,
+        releaseYear : req.body.releaseYear
+        ,runningTime: req.body.runningTime ,
+        country : req.body.country,
+        category : req.body.category,
+        description : req.body.description,
         paths : paths
     });
 

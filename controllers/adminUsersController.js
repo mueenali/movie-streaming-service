@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const Role = require('../models/role');
-const _ = require('lodash');
 
 const index =async (req,res) =>{
     let users = await User.find().populate('role');
@@ -12,8 +11,7 @@ const create = async (req,res) =>{
     res.render('admin/users/create' , {layout : 'admin.hbs', roles});
 };
 const store = async (req,res) =>{
-    let body = _.pick(req.body,['name','email','password','role']);
-    let user = new User(body);
+    let user = new User(req.body);
     await user.save();
     res.redirect('/admin/users');
 };
@@ -27,8 +25,11 @@ const edit = async (req,res) =>{
 
 const update = async (req,res) =>{
     let userId = req.params.id;
-    let body = _.pick(req.body,['name','email','password','role']);
-    let user = await User.findByIdAndUpdate(userId,{$set : body});
+    let user = User.findById(userId);
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.password = req.body.password;
+    user.role = req.body.role;
     await user.save();
     res.redirect('/admin/users');
 };
