@@ -49,9 +49,9 @@ const updatePaths = async (req,res) =>{
     let movie = await Movie.findById(movieId);
     let uploadedVideos = req.files.videos;
     let paths = uploads(res,'movies',uploadedVideos);
-    paths.forEach((path) =>{
-        movie.paths.push(path);
-    });
+    for (path of paths){
+        movie.paths.push(paths);
+    }
     await movie.save();
     res.redirect(`/admin/movies/showVideos/${movieId}`);
 };
