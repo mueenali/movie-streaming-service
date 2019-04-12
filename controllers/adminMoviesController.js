@@ -24,8 +24,8 @@ const create = async (req,res) =>{
 const remove = async (req,res) =>{
     let movieId = req.params.id;
     let movie  = await Movie.findById(movieId);
-    for (let i = 0; i< movies.paths.length; i++){
-        fs.unlinkSync(`public/movies/${movies.paths[i]}`);
+    for (let i = 0; i< movie.paths.length; i++){
+        fs.unlinkSync(`public/movies/${movie.paths[i]}`);
     }
     movie.remove();
     res.redirect('/admin/movies');

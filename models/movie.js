@@ -1,4 +1,6 @@
 let mongoose = require('mongoose');
+let slug = require('mongoose-slug-updater');
+mongoose.plugin(slug);
 let Schema = mongoose.Schema;
 const {ObjectID} = require('mongodb');
 let movieSchema = new Schema({
@@ -38,6 +40,11 @@ let movieSchema = new Schema({
     paths: {
         type : Array,
         required : true
+    },
+    slug: {
+        type: String,
+        slug: "title",
+        unique: true
     }
 });
 

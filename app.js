@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const adminRouter = require('./routes/admin');
+const moviesRouter = require('./routes/movies');
 const expressHbs = require('express-handlebars');
 const passport = require('passport');
 const flash = require('connect-flash');
@@ -21,7 +22,8 @@ const validator = require('express-validator');
 
 require('./config/passport');
 
-app.engine('.hbs',expressHbs({defaultLayout: 'layout',extname : '.hbs' }));
+app.engine('.hbs',expressHbs({defaultLayout: 'layout',extname : '.hbs',
+}));
 
 app.set('view engine', '.hbs');
 
@@ -48,6 +50,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   cookie : {maxAge : 240 *60 * 1000}
 }));
+
 app.use(fileUpload());
 app.use(flash());
 app.use(passport.initialize());
@@ -59,6 +62,7 @@ app.use((req,res,next) =>{
   next();
 });
 
+app.use('/movies', moviesRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/', indexRouter);
