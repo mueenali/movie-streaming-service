@@ -3,9 +3,9 @@ let validation = (req) =>{
     let errors = req.validationErrors();
     if (errors) {
         let messages = [];
-        errors.forEach((error) => {
-            messages.push(error.msg);
-        });
+        for (let i = 0; i<errors.length; i++){
+            messages.push(errors[i].msg);
+        }
         req.flash('error', messages);
        return true;
     }
