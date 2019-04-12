@@ -24,9 +24,8 @@ const create = async (req,res) =>{
 const remove = async (req,res) =>{
     let movieId = req.params.id;
     let movie  = await Movie.findById(movieId);
-    let paths = movie.paths;
-    for(path of paths){
-        fs.unlinkSync(`public/movies/${path}`);
+    for (let i = 0; i< movies.paths.length; i++){
+        fs.unlinkSync(`public/movies/${movies.paths[i]}`);
     }
     movie.remove();
     res.redirect('/admin/movies');
@@ -35,24 +34,17 @@ const remove = async (req,res) =>{
 const deleteVideo = async (req,res) =>{
     let movieId = req.session.movieId? req.session.movieId : "";
     let videoPath  = req.params.path;
-    let movie = await Movie.findById(movieId);
-    let filteredPaths = movie.paths.filter((val,index,arr) => val !== videoPath);
-    movie.paths = filteredPaths;
     fs.unlinkSync(`public/movies/${videoPath}`);
-    await movie.save();
+    await Movie.findByIdAndUpdate(movieId,{$pull :{paths:{$in :[videoPath]}}});
     req.session.movieId = null;
     res.redirect(`/admin/movies/showVideos/${movieId}`);
 };
 
 const updatePaths = async (req,res) =>{
     let movieId = req.params.id;
-    let movie = await Movie.findById(movieId);
     let uploadedVideos = req.files.videos;
     let paths = uploads(res,'movies',uploadedVideos);
-    for (path of paths){
-        movie.paths.push(paths);
-    }
-    await movie.save();
+    await Movie.findByIdAndUpdate(movieId,{$push:{paths}});
     res.redirect(`/admin/movies/showVideos/${movieId}`);
 };
 const edit = async (req,res) =>{
@@ -69,15 +61,8 @@ const update = async (req,res) =>{
 };
 
 const store = async (req,res) =>{
-    let paths;
-    let photoPath;
-    if(req.files.videos){
-        paths =  uploads(res,'movies',req.files.videos);
-    }
-    if(req.files.photo){
-         photoPath= uploads(res,'images',req.files.photo);
-    }
-
+    let paths = req.files.videos ?  uploads(res,'movies',req.files.videos) : '';
+    let photoPath = req.files.photo ? uploads(res,'images',req.files.photo) : '';
     let movie = new Movie({
         title:req.body.title,
         releaseYear : req.body.releaseYear
