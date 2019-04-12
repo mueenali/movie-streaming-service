@@ -25,13 +25,12 @@
                             <span class="filter__item-label">GENRE:</span>
 
                             <div class="filter__item-btn dropdown-toggle" role="navigation" id="filter-genre" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <input type="button" value="{{sectionTitle}}">
+                                <input type="button" value="{{name}}">
                                 <span></span>
                             </div>
-
                             <ul class="filter__item-menu dropdown-menu scrollbar-dropdown" aria-labelledby="filter-genre">
                                 {{#each categories}}
-                                <li><a href="/movies/category/{{this.slug}}">{{this.name}}</a></li>
+                                    <li><a href="/movies/category/{{this.slug}}">{{this.name}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>
