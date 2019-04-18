@@ -34,11 +34,11 @@ let movieSchema = new Schema({
       type: String,
       required:true
     },
-    subtitlePath :{
-        type : String,
+    subtitlePaths :{
+        type : Object,
     },
     paths: {
-        type : Array,
+        type : Object,
         required : true
     },
     slug: {

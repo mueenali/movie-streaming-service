@@ -5,77 +5,138 @@ const Category = require('../models/category');
 const uploads = require('../utils/uploads');
 
 const index = async (req,res) =>{
-    let movies = await Movie.find().populate('category');
-    res.render('admin/movies/index',{layout: 'admin.hbs',movies});
-};
+    try{
+        let movies = await Movie.find().populate('category');
+        res.render('admin/movies/index',{layout: 'admin.hbs',movies});
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('/admin');
+    }
 
-const show = async (req,res) =>{
-    let movieId = req.params.id;
-    let movie =  await Movie.findById(movieId);
-    req.session.movieId = movieId;
-    res.render('admin/movies/showVideos',{layout: 'admin.hbs',paths:movie.paths,movieId});
 };
 
 const create = async (req,res) =>{
-    let categories = await Category.find();
-    res.render('admin/movies/create',{layout:'admin.hbs',categories});
+    try{
+        let categories = await Category.find();
+        res.render('admin/movies/create',{layout:'admin.hbs',categories});
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('/admin');
+    }
+
+};
+const store = async (req,res) =>{
+    try{
+        let movie720p = req.files.movie720p ?  uploads(res,'movies',req.files.movie720p) : null;
+        let movie1080p = req.files.movie1080p ?  uploads(res,'movies',req.files.movie1080p) : null;
+        let movie1440p = req.files.movie1440p ?  uploads(res,'movies',req.files.movie1440p) : null;
+        let photoPath = req.files.photo ? uploads(res,'images',req.files.photo) : '';
+        let movie = new Movie({
+            title:req.body.title,
+            releaseYear : req.body.releaseYear
+            ,runningTime: req.body.runningTime ,
+            country : req.body.country,
+            category : req.body.category,
+            description : req.body.description,
+            photoPath: photoPath,
+            paths :{
+                movie720p,
+                movie1080p,
+                movie1440p
+            }
+        });
+        await movie.save();
+        res.redirect('/admin/movies');
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+
 };
 
-const remove = async (req,res) =>{
-    let movieId = req.params.id;
-    let movie  = await Movie.findById(movieId);
-    for (let i = 0; i< movie.paths.length; i++){
-        fs.unlinkSync(`public/movies/${movie.paths[i]}`);
+const show = async (req,res) =>{
+    try{
+        let movieId = req.params.id;
+        let movie =  await Movie.findById(movieId);
+        req.session.movieId = movieId;
+        res.render('admin/movies/showVideos',{layout: 'admin.hbs',paths:movie.paths,movieId});
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('/admin/movies');
     }
-    movie.remove();
-    res.redirect('/admin/movies');
+
 };
+
+const remove = async (req,res) => {
+    try {
+        let movieId = req.params.id;
+        let movie = await Movie.findById(movieId);
+        for (let i = 0; i < movie.paths.length; i++) {
+            fs.unlinkSync(`public/movies/${movie.paths[i]}`);
+        }
+        movie.remove();
+        res.redirect('/admin/movies');
+
+    } catch (err) {
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+};
+
 
 const deleteVideo = async (req,res) =>{
-    let movieId = req.session.movieId? req.session.movieId : "";
-    let videoPath  = req.params.path;
-    fs.unlinkSync(`public/movies/${videoPath}`);
-    await Movie.findByIdAndUpdate(movieId,{$pull :{paths:{$in :[videoPath]}}});
-    req.session.movieId = null;
-    res.redirect(`/admin/movies/showVideos/${movieId}`);
+    try{
+        let movieId = req.session.movieId? req.session.movieId : "";
+        let propKey = req.body.key;
+        let movie = await Movie.findOne({_id:movieId});
+        movie.paths[propKey] = null;
+        await movie.save();
+        req.session.movieId = null;
+        res.redirect(`/admin/movies/showVideos/${movieId}`);
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+
 };
 
 const updatePaths = async (req,res) =>{
-    let movieId = req.params.id;
-    let uploadedVideos = req.files.videos;
-    let paths = uploads(res,'movies',uploadedVideos);
-    await Movie.findByIdAndUpdate(movieId,{$push:{paths}});
-    res.redirect(`/admin/movies/showVideos/${movieId}`);
+    try{
+        let movieId = req.params.id;
+        let uploadedVideos = req.files.videos;
+        let paths = uploads(res,'movies',uploadedVideos);
+        await Movie.findByIdAndUpdate(movieId,{$push:{paths}});
+        res.redirect(`/admin/movies/showVideos/${movieId}`);
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+
 };
 const edit = async (req,res) =>{
-    let movieId = req.params.id;
-    let movie = await Movie.findById(movieId).populate('category');
-    let categories = await Category.find();
-    res.render('admin/movies/edit',{layout: 'admin.hbs',movie,categories});
+    try{
+        let movieId = req.params.id;
+        let movie = await Movie.findById(movieId).populate('category');
+        let categories = await Category.find();
+        res.render('admin/movies/edit',{layout: 'admin.hbs',movie,categories});
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('/admin/movies');
+    }
+
 };
 
 const update = async (req,res) =>{
-    let movieId = req.params.id;
-    await Movie.findByIdAndUpdate(movieId,{$set : req.body});
-    res.redirect('/admin/movies');
+    try{
+        let movieId = req.params.id;
+        await Movie.findByIdAndUpdate(movieId,{$set : req.body});
+        res.redirect('/admin/movies');
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+
 };
 
-const store = async (req,res) =>{
-    let paths = req.files.videos ?  uploads(res,'movies',req.files.videos) : '';
-    let photoPath = req.files.photo ? uploads(res,'images',req.files.photo) : '';
-    let movie = new Movie({
-        title:req.body.title,
-        releaseYear : req.body.releaseYear
-        ,runningTime: req.body.runningTime ,
-        country : req.body.country,
-        category : req.body.category,
-        description : req.body.description,
-        photoPath: photoPath,
-        paths : paths
-    });
-
-    await movie.save();
-    res.redirect('/admin/movies');
-};
 
 module.exports = {create,store,index,show,remove,edit,update,updatePaths,deleteVideo};
