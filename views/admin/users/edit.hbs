@@ -1,24 +1,24 @@
-<form method="post" action="/admin/users/update/{{user._id}}" enctype="application/x-www-form-urlencoded">
+<form method="post" action="/admin/users/update/{{result._id}}" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group">
         <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{user.name}}" name="name">
+        <input type="text" class="form-control" id="inputName" value="{{result.name}}" name="name">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{user.email}}">
+        <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{result.email}}">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
-        <input type="hidden" name="hiddenPassword" value="{{user.password}}">
+        <input type="hidden" name="hiddenPassword" value="{{result.password}}">
     </div>
     <div class="form-group">
         <label >Role</label>
         <select class="form-control" name="role">
-            {{#each roles}}
-                <option selected="{{user.role.name}}" value={{this._id}}>{{this.name}}</option>
+            {{#each modelResult}}
+                <option value={{this._id}}>{{this.name}}</option>
             {{/each}}
         </select>
     </div>

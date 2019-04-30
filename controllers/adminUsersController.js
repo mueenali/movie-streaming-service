@@ -1,17 +1,10 @@
 const User = require('../models/user');
 const Role = require('../models/role');
+const controllerOperations = require('../utils/controllerOperations');
 
-const index =async (req,res) =>{
-    try{
-        let users = await User.find().populate('role');
-        res.render('admin/users/index',{layout: 'admin.hbs', users,errors: req.flash('error')});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin');
-    }
-
+const index = (req,res) =>{
+    controllerOperations.index(User,res,req,'role','admin/users/index');
 };
-
 const create = async (req,res) =>{
     try{
         let roles = await Role.find();
@@ -23,30 +16,13 @@ const create = async (req,res) =>{
 
 };
 const store = async (req,res) =>{
-    try{
-        let user = new User(req.body);
-        await user.save();
-        res.redirect('/admin/users');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
-
+    controllerOperations.store(User,res,req,'/admin/users');
 };
 
 const edit = async (req,res) =>{
-    try{
-        let userId = req.params.id;
-        let user = await User.findById(userId);
-        let roles = await Role.find();
-        res.render('admin/users/edit',{layout:'admin.hbs',user,roles});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin/users');
-    }
-
+    let roles = await Role.find();
+    controllerOperations.edit(User,roles,res,req,'admin/users/edit','/admin/users');
 };
-
 const update = async (req,res) =>{
     try{
         let userId = req.params.id;
@@ -67,15 +43,7 @@ const update = async (req,res) =>{
 };
 
 const remove = async (req,res) =>{
-    try{
-        let userId= req.params.id;
-        await User.findByIdAndRemove(userId);
-        res.redirect('/admin/users');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
-
+    controllerOperations.remove(User,res,req,'/admin/users');
 };
 
 module.exports = {index,create,store,edit,update,remove};

@@ -1,34 +1,34 @@
 
-<form method="post" action="/admin/movies/update/{{movie._id}}" enctype="application/x-www-form-urlencoded" >
+<form method="post" action="/admin/movies/update/{{result._id}}" enctype="application/x-www-form-urlencoded" >
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group">
         <label >Title</label>
-        <input type="text" class="form-control" id="inputType" placeholder="type" name="title" value="{{movie.title}}">
+        <input type="text" class="form-control" id="inputType" placeholder="type" name="title" value="{{result.title}}">
     </div>
     <div class="form-group">
         <label for="exampleInputEmail1">Release Year</label>
         <input type="text" class="form-control" name="releaseYear" id="exampleInputDuration" aria-describedby="emailHelp" placeholder="releaseYear"
-               value="{{movie.releaseYear}}" >
+               value="{{result.releaseYear}}" >
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Running Time</label>
-        <input type="text" class="form-control" id="exampleInputRunningTime" name="runningTime" placeholder="Running Time" value="{{movie.runningTime}}">
+        <input type="text" class="form-control" id="exampleInputRunningTime" name="runningTime" placeholder="Running Time" value="{{result.runningTime}}">
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Country</label>
-        <input type="text" class="form-control" id="exampleInputCountry" name="country" placeholder="Country" value="{{movie.country}}">
+        <input type="text" class="form-control" id="exampleInputCountry" name="country" placeholder="Country" value="{{result.country}}">
     </div>
     <div class="form-group">
         <label >Category</label>
-        <select class="form-control" name="category" >
-            {{#each categories}}
-                <option selected="{{movie.category.name}}" value={{this._id}}>{{this.name}}</option>
+        <select class="form-control" name="category"  >
+            {{#each modelResult}}
+                <option value={{this._id}}>{{this.name}}</option>
             {{/each}}
         </select>
     </div>
     <div class="form-group">
         <label for="exampleInputPassword1">Description</label>
-        <textarea  class="form-control" id="exampleInputDescription" name="description" placeholder="Description">{{movie.description}}</textarea>
+        <textarea  class="form-control" id="exampleInputDescription" name="description" placeholder="Description">{{result.description}}</textarea>
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>

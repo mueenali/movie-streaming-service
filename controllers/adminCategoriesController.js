@@ -1,13 +1,7 @@
 const Category = require('../models/category');
-const index = async (req,res) =>{
-    try{
-        let categories =  await Category.find();
-        res.render('admin/categories/index',{layout: 'admin.hbs',categories,errors:req.flash('error')});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin');
-    }
-
+const controllerOperations = require('../utils/controllerOperations');
+const index =  (req,res) =>{
+    controllerOperations.index(Category,res,req,'','admin/categories/index');
 };
 
 const create = (req,res) =>{
@@ -15,52 +9,18 @@ const create = (req,res) =>{
 };
 
 const store = async (req,res) =>{
-    try{
-        let categoryName = req.body.name;
-        let category = new Category({name:categoryName});
-        await category.save();
-        res.redirect('/admin/categories');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
-
+    controllerOperations.store(Category,res,req,'/admin/categories');
 };
 
 const remove = async (req,res) =>{
-    try{
-        let categoryId = req.params.id;
-        await Category.findByIdAndRemove(categoryId);
-        res.redirect('/admin/categories');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
-
+    controllerOperations.remove(Category,res,req,'/admin/categories');
 };
 
 const edit = async (req,res) =>{
-    try{
-        let categoryId = req.params.id;
-        let category = await Category.findById(categoryId);
-        res.render('admin/categories/edit',{layout: 'admin.hbs',category});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin/categories');
-    }
-
+    controllerOperations.edit(Category,{},res,req,'admin/categories/edit', '/admin/categories')
 };
 
-const update = async (req,res) =>{
-    try{
-        let categoryId = req.params.id;
-        let name = req.body.name;
-        await Category.findByIdAndUpdate(categoryId,{name});
-        res.redirect('/admin/categories');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
-
+const update =  (req,res) =>{
+    controllerOperations.update(Category,res,req,'/admin/categories',);
 };
 module.exports = {index,create,store,remove,edit,update};

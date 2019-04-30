@@ -1,24 +1,24 @@
-<form method="post" action="/admin/subscriptions/update/{{subscription._id}}" enctype="application/x-www-form-urlencoded">
+<form method="post" action="/admin/subscriptions/update/{{result._id}}" enctype="application/x-www-form-urlencoded">
     <input type="hidden" name="_method" value="PUT">
     <div class="form-group">
-        <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{subscription.type}}" name="type">
+        <label >Type</label>
+        <input type="text" class="form-control" id="inputName" value="{{result.type}}" name="type">
     </div>
     <div class="form-group">
-        <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{subscription.duration}}" name="duration">
+        <label >Duration</label>
+        <input type="text" class="form-control" id="inputName" value="{{result.duration}}" name="duration">
     </div>
     <div class="form-group">
-        <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{subscription.price}}" name="price">
+        <label >Price</label>
+        <input type="text" class="form-control" id="inputName" value="{{result.price}}" name="price">
     </div>
     <div class="form-group">
-        <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{subscription.availability}}" name="availability">
+        <label >Availability</label>
+        <input type="text" class="form-control" id="inputName" value="{{result.availability}}" name="availability">
     </div>
     <div class="form-group">
-        <label >Name</label>
-        <input type="text" class="form-control" id="inputName" value="{{subscription.support}}" name="support">
+        <label >Support</label>
+        <input type="text" class="form-control" id="inputName" value="{{result.support}}" name="support">
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>

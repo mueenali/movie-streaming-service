@@ -2,7 +2,7 @@ const Movie = require('../models/movie');
 const fs = require('fs');
 const Category = require('../models/category');
 const uploads = require('../utils/uploads');
-
+const controllerOperations = require('../utils/controllerOperations');
 const index = async (req,res) =>{
     try{
         let movies = await Movie.find().populate('category');
@@ -84,7 +84,6 @@ const remove = async (req,res) => {
         }
         movie.remove();
         res.redirect('/admin/movies');
-
     } catch (err) {
         req.flash('error',err.message);
         res.redirect('back');
@@ -123,28 +122,12 @@ const updatePaths = async (req,res) =>{
 
 };
 const edit = async (req,res) =>{
-    try{
-        let movieId = req.params.id;
-        let movie = await Movie.findById(movieId).populate('category');
-        let categories = await Category.find();
-        res.render('admin/movies/edit',{layout: 'admin.hbs',movie,categories});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin/movies');
-    }
-
+    let categories = await Category.find();
+    controllerOperations.edit(Movie,categories,res,req,'admin/movies/edit','/admin/movies','category');
 };
 
-const update = async (req,res) =>{
-    try{
-        let movieId = req.params.id;
-        await Movie.findByIdAndUpdate(movieId,{$set : req.body});
-        res.redirect('/admin/movies');
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('back');
-    }
+const update =  (req,res) =>{
+    controllerOperations.update(Movie,res,req,'/admin/movies');
 };
-
 
 module.exports = {create,store,index,show,remove,edit,update,updatePaths,deleteVideo};
