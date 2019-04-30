@@ -2,7 +2,7 @@
 <table class="table">
 <thead>
 <tr>
-    <th scope="col">Path</th>
+    <th scope="col">Name</th>
     <th scope="col">Video</th>
     <th scope="col">Action</th>
 </tr>
@@ -10,15 +10,15 @@
     <tbody>
     {{#each paths}}
         <tr>
-            <td>{{this}}</td>
+            <td>{{this.name}}</td>
             <td>
                 <video width="320" height="240" controls>
-                    <source src="/movies/{{this}}" type="video/mp4">
+                    <source src="/movies/{{this.path}}" type="video/mp4">
                 </video>
             </td>
-        <td><form method="post" action="/admin/movies/deleteVideo/{{this}}" enctype="application/x-www-form-urlencoded">
+        <td><form method="post" action="/admin/movies/deleteVideo/{{this.path}}" enctype="application/x-www-form-urlencoded">
             <input type="hidden" name="_method" value="DELETE">
-            <input type="hidden" name="key" value="{{@key}}">
+            <input type="hidden" name="name" value="{{this.name}}">
             <button type="submit" class="btn btn-danger">Delete</button>
         </form></td>
     {{/each}}
@@ -28,18 +28,18 @@
 
 <form method="post" action="/admin/movies/updatePath/{{movieId}}" enctype="multipart/form-data">
     <div class="row">
-        <div class="form-group col-xs-3">
-            <label for="exampleInputPassword1">Movie 720P</label>
-            <input type="file" name ="movie720p"  id="exampleInputDescription">
+        <div class="form-group">
+            <label >Choose res</label>
+            <select class="form-control" name="movieRes">
+                <option value="movie720p">720p</option>
+                <option value="movie1080p">1080p</option>
+                <option value="movie1440p">1440p</option>
+            </select>
         </div>
-        <div class="form-group col-xs-3">
-            <label for="exampleInputPassword1">Movie 1080P</label>
-            <input type="file" name ="movie1080p"  id="exampleInputDescription">
-        </div>
-        <div class="form-group col-xs-3">
-            <label for="exampleInputPassword1">Movie 1440P</label>
-            <input type="file" name ="movie1440p"  id="exampleInputDescription">
-        </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Movie</label>
+        <input type="file" id="exampleInputDescription" name="movie">
     </div>
     <button type="submit" class="btn btn-primary">Upload</button>
+    </div>
 </form>

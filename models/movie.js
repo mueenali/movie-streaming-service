@@ -37,9 +37,9 @@ let movieSchema = new Schema({
     subtitlePaths :{
         type : Object,
     },
-    paths: {
-        type : Object,
-        required : true
+    paths:{
+        type:Array,
+        required:true
     },
     slug: {
         type: String,

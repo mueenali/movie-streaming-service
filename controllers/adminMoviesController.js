@@ -1,5 +1,4 @@
 const Movie = require('../models/movie');
-
 const fs = require('fs');
 const Category = require('../models/category');
 const uploads = require('../utils/uploads');
@@ -39,11 +38,20 @@ const store = async (req,res) =>{
             category : req.body.category,
             description : req.body.description,
             photoPath: photoPath,
-            paths :{
-                movie720p,
-                movie1080p,
-                movie1440p
-            }
+            paths: [
+                {
+                    name: 'movie720p',
+                    path: movie720p
+                },
+                {
+                    name: 'movie1080p',
+                    path: movie1080p
+                },
+                {
+                    name: 'movie1440p',
+                    path: movie1440p
+                }
+            ]
         });
         await movie.save();
         res.redirect('/admin/movies');
@@ -57,9 +65,9 @@ const store = async (req,res) =>{
 const show = async (req,res) =>{
     try{
         let movieId = req.params.id;
-        let movie =  await Movie.findById(movieId);
+        let movie = await Movie.findById(movieId);
         req.session.movieId = movieId;
-        res.render('admin/movies/showVideos',{layout: 'admin.hbs',paths:movie.paths,movieId});
+        res.render('admin/movies/showVideos',{layout: 'admin.hbs',paths:movie.paths,movie,movieId});
     }catch(err){
         req.flash('error',err.message);
         res.redirect('/admin/movies');
@@ -87,10 +95,10 @@ const remove = async (req,res) => {
 const deleteVideo = async (req,res) =>{
     try{
         let movieId = req.session.movieId? req.session.movieId : "";
-        let propKey = req.body.key;
-        let movie = await Movie.findOne({_id:movieId});
-        movie.paths[propKey] = null;
-        await movie.save();
+        let name = req.body.name;
+        let path = req.params.path;
+        fs.unlinkSync(`public/movies/${path}`);
+        await Movie.update({_id:movieId,'paths.name':name},{$set:{"paths.$.path":null}});
         req.session.movieId = null;
         res.redirect(`/admin/movies/showVideos/${movieId}`);
     }catch(err){
@@ -103,9 +111,10 @@ const deleteVideo = async (req,res) =>{
 const updatePaths = async (req,res) =>{
     try{
         let movieId = req.params.id;
-        let uploadedVideos = req.files.videos;
-        let paths = uploads(res,'movies',uploadedVideos);
-        await Movie.findByIdAndUpdate(movieId,{$push:{paths}});
+        let video = req.files.movie;
+        let res = req.body.movieRes;
+        let path = uploads(res,'movies',video);
+        await Movie.update({_id:movieId,'paths.name':res},{$set:{"paths.$.path":path}});
         res.redirect(`/admin/movies/showVideos/${movieId}`);
     }catch(err){
         req.flash('error',err.message);
@@ -135,7 +144,6 @@ const update = async (req,res) =>{
         req.flash('error',err.message);
         res.redirect('back');
     }
-
 };
 
 
