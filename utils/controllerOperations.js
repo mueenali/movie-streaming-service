@@ -8,6 +8,15 @@ const index = async (Model,res,req,populatedModel,des)=>{
         res.redirect('/admin');
     }
 };
+const create = async (Model,res,req,des) =>{
+    try{
+        let result = await Model.find();
+        res.render(des,{layout:'admin.hbs',result});
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('/admin');
+    }
+};
 
 const store = async (Model,res,req,des) =>{
     try{
@@ -50,4 +59,4 @@ const edit =async (Model,modelResult,res,req,des,errDes) =>{
     }
 };
 
-module.exports = {update,edit,remove,store,index};
+module.exports = {update,edit,remove,store,index,create};

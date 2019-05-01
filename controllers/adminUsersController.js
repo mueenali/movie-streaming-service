@@ -5,15 +5,8 @@ const controllerOperations = require('../utils/controllerOperations');
 const index = (req,res) =>{
     controllerOperations.index(User,res,req,'role','admin/users/index');
 };
-const create = async (req,res) =>{
-    try{
-        let roles = await Role.find();
-        res.render('admin/users/create' , {layout : 'admin.hbs', roles});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin');
-    }
-
+const create =  (req,res) =>{
+   controllerOperations.create(Role,res,req,'admin/users/create');
 };
 const store = async (req,res) =>{
     controllerOperations.store(User,res,req,'/admin/users');

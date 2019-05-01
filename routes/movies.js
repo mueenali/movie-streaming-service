@@ -6,5 +6,5 @@ const moviesController = require('../controllers/moviesController');
 router.get('/',moviesController.allMovies);
 router.get('/category/:slug',moviesController.moviesByCategory);
 router.get('/newReleases',moviesController.thisYearReleases);
-
+router.get('/:slug',moviesController.showMovie);
 module.exports = router;

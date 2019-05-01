@@ -1,4 +1,4 @@
-<section class="section section--first section--bg" data-bg="img/section/section.jpg">
+<section class="section section--first section--bg" data-bg="/images/section/section.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -52,12 +52,12 @@
                     <div class="card">
                         <div class="card__cover">
                             <img src="/images/{{this.photoPath}}" alt="">
-                            <a href="#" class="card__play">
+                            <a href="/movies/{{this.slug}}" class="card__play">
                                 <i class="icon ion-ios-play"></i>
                             </a>
                         </div>
                         <div class="card__content">
-                            <h3 class="card__title"><a href="#">{{this.title}}</a></h3>
+                            <h3 class="card__title"><a href="/movies/{{this.slug}}">{{this.title}}</a></h3>
                             <span class="card__category">
 								<a href="#">{{this.category.name}}</a>
 							</span>

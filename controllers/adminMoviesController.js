@@ -4,26 +4,13 @@ const Category = require('../models/category');
 const uploads = require('../utils/uploads');
 const controllerOperations = require('../utils/controllerOperations');
 const index = async (req,res) =>{
-    try{
-        let movies = await Movie.find().populate('category');
-        res.render('admin/movies/index',{layout: 'admin.hbs',movies});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin');
-    }
-
+    controllerOperations.index(Movie,res,req,'category','admin/movies/index');
 };
 
-const create = async (req,res) =>{
-    try{
-        let categories = await Category.find();
-        res.render('admin/movies/create',{layout:'admin.hbs',categories});
-    }catch(err){
-        req.flash('error',err.message);
-        res.redirect('/admin');
-    }
-
+const create =  (req,res) =>{
+    controllerOperations.create(Category,res,req,'admin/movies/create');
 };
+
 const store = async (req,res) =>{
     try{
         let movie720p = req.files.movie720p ?  uploads(res,'movies',req.files.movie720p) : null;
