@@ -20,7 +20,7 @@
                         <!-- card cover -->
                         <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
                             <div class="card__cover">
-                                <img src="/images/{{movie.photoPath}}" alt="">
+                                <img src="/images/{{movie.photoPath}}"height="200" alt="">
                             </div>
                         </div>
                         <!-- end card cover -->
@@ -38,15 +38,14 @@
                                 </div>
 
                                 <ul class="card__meta">
-                                    <li><span>Genre:</span> <a href="#">{{movie.category.name}}</a>
-                                        <a href="#">Triler</a></li>
-                                    <li><span>Release year:</span> 2017</li>
-                                    <li><span>Running time:</span> 120 min</li>
-                                    <li><span>Country:</span> <a href="#">USA</a> </li>
+                                    <li><span>Genre:</span> <a href="">{{movie.category.name}}</a>
+                                    <li><span>Release year:</span>{{movie.releaseYear}} </li>
+                                    <li><span>Running time:</span>{{movie.runningTime}}</li>
+                                    <li><span>Country:</span> <a href="">{{movie.country}}</a> </li>
                                 </ul>
 
                                 <div class="card__description card__description--details">
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
+                                 {{movie.description}}
                                 </div>
                             </div>
                         </div>
@@ -58,20 +57,17 @@
 
             <!-- player -->
             <div class="col-12 col-xl-6">
-                <video controls crossorigin playsinline poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player">
-                    <!-- Video files -->
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" type="video/mp4" size="576">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4" type="video/mp4" size="720">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4" type="video/mp4" size="1080">
-                    <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4" type="video/mp4" size="1440">
 
+                <video controls crossorigin playsinline poster="/images/{{movie.photoPath}}" id="player">
+                    <!-- Video files -->
+                    <source  src="{{paths.res720}}" type="video/mp4" size="720">
+                    <source src="{{paths.res1080}}" type="video/mp4" size="1080">
+                    <source src="{{paths.res1440}}" type="video/mp4" size="1440">
                     <!-- Caption files -->
                     <track kind="captions" label="English" srclang="en" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.en.vtt"
                            default>
-                    <track kind="captions" label="Français" srclang="fr" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
+                    <track kind="captions" label="Arabic" srclang="ar" src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt">
 
-                    <!-- Fallback for browsers that don't support the <video> element -->
-                    <a href="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" download>Download</a>
                 </video>
             </div>
             <!-- end player -->
@@ -129,10 +125,6 @@
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Reviews</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Photos</a>
-                        </li>
                     </ul>
                     <!-- end content tabs nav -->
 
@@ -167,16 +159,19 @@
                     <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
                         <div class="row">
                             <!-- comments -->
+
                             <div class="col-12">
                                 <div class="comments">
+                                    {{#if comments}}
                                     <ul class="comments__list">
+                                        {{#each comments}}
                                         <li class="comments__item">
                                             <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">30.08.2018, 17:53</span>
+                                                <img class="comments__avatar" src="/images/user.png" alt="">
+                                                <span class="comments__name">{{this.user.name}}</span>
+                                                <span class="comments__time">{{this.date}}</span>
                                             </div>
-                                            <p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                            <p class="comments__text">{{this.content}}</p>
                                             <div class="comments__actions">
                                                 <div class="comments__rate">
                                                     <button type="button"><i class="icon ion-md-thumbs-up"></i>12</button>
@@ -185,13 +180,11 @@
                                                 </div>
 
                                                 <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
                                             </div>
                                         </li>
-
                                         <li class="comments__item comments__item--answer">
                                             <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
+                                                <img class="comments__avatar" src="/images/user.png" alt="">
                                                 <span class="comments__name">John Doe</span>
                                                 <span class="comments__time">24.08.2018, 16:41</span>
                                             </div>
@@ -204,71 +197,15 @@
                                                 </div>
 
                                                 <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
                                             </div>
                                         </li>
-
-                                        <li class="comments__item comments__item--quote">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">11.08.2018, 11:11</span>
-                                            </div>
-                                            <p class="comments__text"><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</span>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>11</button>
-
-                                                    <button type="button">1<i class="icon ion-md-thumbs-down"></i></button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">07.08.2018, 14:33</span>
-                                            </div>
-                                            <p class="comments__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>99</button>
-
-                                                    <button type="button">35<i class="icon ion-md-thumbs-down"></i></button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="img/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">02.08.2018, 15:24</span>
-                                            </div>
-                                            <p class="comments__text">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>74</button>
-
-                                                    <button type="button">13<i class="icon ion-md-thumbs-down"></i></button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                                <button type="button"><i class="icon ion-ios-quote"></i>Quote</button>
-                                            </div>
-                                        </li>
+                                            {{/each}}
                                     </ul>
+                                        {{/if}}
 
-                                    <form action="#" class="form">
-                                        <textarea id="text" name="text" class="form__textarea" placeholder="Add comment"></textarea>
-                                        <button type="button" class="form__btn">Send</button>
+                                    <form action="/movies/comments/create" method="post" class="form">
+                                        <textarea id="text" name="content" class="form__textarea" placeholder="Add comment"></textarea>
+                                        <button type="submit" class="form__btn">Comment</button>
                                     </form>
                                 </div>
                             </div>
@@ -323,7 +260,7 @@
                                             <div class="form__slider-rating" id="slider__rating"></div>
                                             <div class="form__slider-value" id="form__slider-value"></div>
                                         </div>
-                                        <button type="button" class="form__btn">Send</button>
+                                        <button type="submit" class="form__btn">Send</button>
                                     </form>
                                 </div>
                             </div>

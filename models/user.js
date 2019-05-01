@@ -1,8 +1,8 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 const {ObjectID} = require('mongodb');
-let userSchema = new Schema({
+const userSchema = new Schema({
     name :{
         type: String,
         required : true

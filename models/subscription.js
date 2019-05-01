@@ -1,6 +1,6 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
-let subscriptionSchema = new Schema({
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const subscriptionSchema = new Schema({
     type :{
         type: String,
         unique : true,

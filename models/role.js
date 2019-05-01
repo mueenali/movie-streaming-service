@@ -1,7 +1,7 @@
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-let roleSchema = new Schema({
+const roleSchema = new Schema({
     name :{
         type: String,
         required : true

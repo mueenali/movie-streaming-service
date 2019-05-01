@@ -1,9 +1,9 @@
-let mongoose = require('mongoose');
-let slug = require('mongoose-slug-updater');
+const mongoose = require('mongoose');
+const slug = require('mongoose-slug-updater');
 mongoose.plugin(slug);
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 const {ObjectID} = require('mongodb');
-let movieSchema = new Schema({
+const movieSchema = new Schema({
     title :{
         type: String,
         required : true

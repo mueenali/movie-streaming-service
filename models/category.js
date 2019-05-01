@@ -1,8 +1,8 @@
-let mongoose = require('mongoose');
-let slug = require('mongoose-slug-updater');
+const mongoose = require('mongoose');
+const slug = require('mongoose-slug-updater');
 mongoose.plugin(slug);
-let Schema = mongoose.Schema;
-let categorySchema = new Schema({
+const Schema = mongoose.Schema;
+const categorySchema = new Schema({
     name :{
         type: String,
         unique : true,
