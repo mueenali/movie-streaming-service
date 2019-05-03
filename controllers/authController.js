@@ -6,11 +6,9 @@ const loginIndex = (req,res) =>{
 };
 
 const login =  passport.authenticate('local.login',{
-    successRedirect: '/admin',
     failureRedirect : '/user/login',
     failureFlash : true,
 });
-
 
 const signUpIndex = (req,res) =>{
     let messages = req.flash('error');
@@ -18,9 +16,13 @@ const signUpIndex = (req,res) =>{
 };
 
 const signUp =  passport.authenticate('local.signup', {
-    successRedirect: '/admin',
     failureRedirect: '/user/signup',
     failureFlash: true,
 });
 
-module.exports = {loginIndex,login,signUpIndex,signUp};
+const logout = (req,res,next) => {
+    req.logout();
+    res.redirect('/');
+};
+
+module.exports = {loginIndex,login,signUpIndex,signUp,logout};

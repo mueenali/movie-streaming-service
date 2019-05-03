@@ -162,51 +162,27 @@
 
                             <div class="col-12">
                                 <div class="comments">
-                                    {{#if comments}}
-                                    <ul class="comments__list">
-                                        {{#each comments}}
-                                        <li class="comments__item">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="/images/user.png" alt="">
-                                                <span class="comments__name">{{this.user.name}}</span>
-                                                <span class="comments__time">{{this.date}}</span>
-                                            </div>
-                                            <p class="comments__text">{{this.content}}</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>12</button>
+                                    <div id="disqus_thread"></div>
+                                    <script>
 
-                                                    <button type="button">7<i class="icon ion-md-thumbs-down"></i></button>
-                                                </div>
+                                        /**
+                                         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                                         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+                                        /*
+                                        var disqus_config = function () {
+                                        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+                                        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                                        };
+                                        */
+                                        (function() { // DON'T EDIT BELOW THIS LINE
+                                            var d = document, s = d.createElement('script');
+                                            s.src = 'https://flixgo-2.disqus.com/embed.js';
+                                            s.setAttribute('data-timestamp', +new Date());
+                                            (d.head || d.body).appendChild(s);
+                                        })();
+                                    </script>
+                                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                            </div>
-                                        </li>
-                                        <li class="comments__item comments__item--answer">
-                                            <div class="comments__autor">
-                                                <img class="comments__avatar" src="/images/user.png" alt="">
-                                                <span class="comments__name">John Doe</span>
-                                                <span class="comments__time">24.08.2018, 16:41</span>
-                                            </div>
-                                            <p class="comments__text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                            <div class="comments__actions">
-                                                <div class="comments__rate">
-                                                    <button type="button"><i class="icon ion-md-thumbs-up"></i>8</button>
-
-                                                    <button type="button">3<i class="icon ion-md-thumbs-down"></i></button>
-                                                </div>
-
-                                                <button type="button"><i class="icon ion-ios-share-alt"></i>Reply</button>
-                                            </div>
-                                        </li>
-                                            {{/each}}
-                                    </ul>
-                                        {{/if}}
-
-                                    <form action="/movies/comments/create" method="post" class="form">
-                                        <textarea id="text" name="content" class="form__textarea" placeholder="Add comment"></textarea>
-                                        <button type="submit" class="form__btn">Comment</button>
-                                    </form>
                                 </div>
                             </div>
                             <!-- end comments -->
@@ -218,44 +194,26 @@
                             <!-- reviews -->
                             <div class="col-12">
                                 <div class="reviews">
+                                    {{#if reviews}}
                                     <ul class="reviews__list">
+                                        {{#each reviews}}
                                         <li class="reviews__item">
                                             <div class="reviews__autor">
                                                 <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
+                                                <span class="reviews__name">{{this.title}}</span>
+                                                <span class="reviews__time">{{this.date}}, by {{this.user.name}}</span>
 
                                                 <span class="reviews__rating"><i class="icon ion-ios-star"></i>8.4</span>
                                             </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                                            <p class="reviews__text">{{this.content}}</p>
                                         </li>
-
-                                        <li class="reviews__item">
-                                            <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>9.0</span>
-                                            </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                                        </li>
-
-                                        <li class="reviews__item">
-                                            <div class="reviews__autor">
-                                                <img class="reviews__avatar" src="img/user.png" alt="">
-                                                <span class="reviews__name">Best Marvel movie in my opinion</span>
-                                                <span class="reviews__time">24.08.2018, 17:53 by John Doe</span>
-
-                                                <span class="reviews__rating"><i class="icon ion-ios-star"></i>7.5</span>
-                                            </div>
-                                            <p class="reviews__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                                        </li>
+                                            {{/each}}
                                     </ul>
+                                        {{/if}}
 
-                                    <form action="#" class="form">
-                                        <input type="text" class="form__input" placeholder="Title">
-                                        <textarea class="form__textarea" placeholder="Review"></textarea>
+                                    <form action="/movies/movie/review/{{movie._id}}" method="post" class="form">
+                                        <input type="text" name="title" class="form__input" placeholder="Title">
+                                        <textarea class="form__textarea" placeholder="Review" name="content"></textarea>
                                         <div class="form__slider">
                                             <div class="form__slider-rating" id="slider__rating"></div>
                                             <div class="form__slider-value" id="form__slider-value"></div>

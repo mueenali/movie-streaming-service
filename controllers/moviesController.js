@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 const Category = require('../models/category');
-const Comment = require('../models/comment');
+const Review = require('../models/review');
+const moment = require('moment');
 const allMovies = async (req,res) => {
     try{
         let categories =await Category.find();
@@ -14,15 +15,15 @@ const allMovies = async (req,res) => {
 
 };
 const showMovie = async (req,res) =>{
-    let comments = await Comment.find().populate('user');
     let movieSlug = req.params.slug;
     let movie = await Movie.findOne({slug:movieSlug}).populate('category');
+    let reviews = await Review.find({movie:movie}).populate('user');
     let paths = {
         res720:movie.paths[0].path,
         res1080:movie.paths[1].path,
         res1440:movie.paths[2].path
     };
-    res.render('appFront/movie',{sectionTitle:movie.title,movie,title: movie.title,paths,comments});
+    res.render('appFront/movie',{sectionTitle:movie.title,movie,title: movie.title,paths,reviews});
 };
 
 const moviesByCategory =async (req,res) =>{
@@ -39,13 +40,9 @@ const moviesByCategory =async (req,res) =>{
 
 };
 
-
-
 const search = (req,res) =>{
 
 };
-
-
 
 const thisYearReleases = async (req,res) =>{
     try{
@@ -61,6 +58,30 @@ const thisYearReleases = async (req,res) =>{
 
 };
 
+const addReview = async (req,res) =>{
+    try{
+        let movie = req.params.id;
+        let user = req.user;
+        let review = new Review({
+            title: req.body.title,
+            content: req.body.content,
+            date:moment().format('LLL'),
+            user,
+            movie
+        });
+        await review.save();
+        res.redirect('back');
+    }catch(err){
+        req.flash('error',err.message);
+        res.redirect('back');
+    }
+};
+
+const calculateRating = (req,res) =>{
+
+};
 
 
-module.exports = {allMovies,moviesByCategory,thisYearReleases,showMovie};
+
+
+module.exports = {allMovies,moviesByCategory,thisYearReleases,showMovie,addReview};

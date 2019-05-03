@@ -6,9 +6,10 @@ const adminController = require('../controllers/adminController');
 const adminUsersController = require('../controllers/adminUsersController');
 const adminCategoriesController = require('../controllers/adminCategoriesController');
 const adminSubscriptionsController = require('../controllers/adminSubscriptionsController');
-
 const adminMoviesController = require('../controllers/adminMoviesController');
 // router.use(csrfProtection);
+const isAdmin = require('../middlewares/isAdmin');
+router.use(isAdmin);
 router.get('/',adminController.index);
 
 router.get('/users', adminUsersController.index);
