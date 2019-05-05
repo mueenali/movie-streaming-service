@@ -1,7 +1,13 @@
 {{#if hasErrors}}
-    <div class="alert alert-danger" role="alert">
+    <div style="width: 100%" class="alert alert-danger" role="alert">
         {{#each errorMessages}}
             <p>{{this}}</p>
         {{/each }}
+    </div>
+{{/if}}
+{{#if verificationError}}
+    <div style="width: 1000%" class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Verify your email</h4>
+        <p>{{verificationError}}</p>
     </div>
 {{/if}}
