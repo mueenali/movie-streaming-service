@@ -2,12 +2,13 @@ const passport = require('passport');
 const User = require('../models/user');
 const LocalStrategy = require('passport-local');
 let validation = require('../utils/userValidation');
-
-passport.serializeUser( (user, done) => {
+const generateToken = require('../utils/generateToken');
+const sendEmail = require('../utils/sendEmail');
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
-passport.deserializeUser( (id, done) => {
-    User.findById(id,  (err, user) => {
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
         done(err, user);
     }).populate('role');
 });
@@ -34,6 +35,10 @@ passport.use('local.signup', new LocalStrategy({
             }
             let newUser = new User(req.body);
             await newUser.save();
+            let token = generateToken(newUser._id,"365d");
+            const url = `http://localhost:3000/user/verify/${token}`;
+            let mailContent = `hey ${newUser.name},you are almost ready to start enjoying FlixGo, Simply click the link below to verify your email address`;
+            sendEmail(newUser.email, 'Email Confirmation', mailContent, url);
             return done(null, newUser);
         } catch (err) {
             return done(err);
@@ -47,7 +52,7 @@ passport.use('local.login', new LocalStrategy({
         passReqToCallback: true
     }, async (req, email, password, done) => {
         req.checkBody('email', 'Invalid email').isEmail().notEmpty();
-        if(validation(req)){
+        if (validation(req)) {
             return done(null, false);
         }
         try {

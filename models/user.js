@@ -20,6 +20,10 @@ const userSchema = new Schema({
     imagePath :{
         type :String
     },
+    verified:{
+        type:Boolean,
+        default: false,
+    },
     role : {
         type : ObjectID,
         default : null,
