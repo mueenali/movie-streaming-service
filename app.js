@@ -44,7 +44,7 @@ app.use(methodOverride( (req, res) => {
 }));
 
 app.use(session({
-  secret : 'UsersSecretKeySessions',
+  secret : process.env.SESSION_SECRET_KEY,
   resave: false,
   aveUninitialized: true,
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -81,7 +81,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('404');
+  res.render('error',{layout:''});
 });
 
 

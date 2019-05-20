@@ -1,5 +1,6 @@
 const passport = require('passport');
 const User = require('../models/user');
+const axios = require('axios');
 const LocalStrategy = require('passport-local');
 let validation = require('../utils/userValidation');
 const generateToken = require('../utils/generateToken');
@@ -35,7 +36,7 @@ passport.use('local.signup', new LocalStrategy({
             }
             let newUser = new User(req.body);
             await newUser.save();
-            let token = generateToken(newUser._id,"365d");
+            let token = generateToken(newUser._id, "365d");
             const url = `http://localhost:3000/user/verify/${token}`;
             let mailContent = `hey ${newUser.name},you are almost ready to start enjoying FlixGo, Simply click the link below to verify your email address`;
             sendEmail(newUser.email, 'Email Confirmation', mailContent, url);
@@ -62,6 +63,14 @@ passport.use('local.login', new LocalStrategy({
             }
             if (!user.matchedPassword(password)) {
                 return done(null, false, {message: 'Wrong password'});
+            }
+            if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+                return done(null, false, {message: 'Please select captcha'})
+            }
+            const verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + process.env.SECRET_KEY + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+            let result = await axios.post(verificationUrl);
+            if(result.data.success !== undefined && !result.data.success) {
+                return done(null,false,{message:"Failed captcha verification"});
             }
             return done(null, user);
         } catch (err) {

@@ -6,7 +6,7 @@ const sendEmail = require('../utils/sendEmail');
 const loginIndex = (req,res) =>{
     let errorMessages = req.flash('error');
     let csrfToken = req.csrfToken();
-    res.render('user/login',{layout: null,title:'Login',csrfToken, errorMessages, hasErrors: errorMessages.length > 0});
+    res.render('user/login',{layout: null,title:'Login',csrfToken, errorMessages, hasErrors: errorMessages.length > 0,siteKey:process.env.SITE_KEY});
 };
 
 const login =  passport.authenticate('local.login',{
