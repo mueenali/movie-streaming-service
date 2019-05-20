@@ -5,3 +5,15 @@
         {{/each }}
     </div>
 {{/if}}
+{{#if emailVerification}}
+    <div style="width: 1000%" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">{{emailHeading}}</h4>
+        <p>{{emailVerification}}</p>
+    </div>
+{{/if}}
+{{#if passwordReset}}
+    <div style="width: 1000%" class="alert alert-success" role="alert">
+        <h4 class="alert-heading">{{resetHeading}}</h4>
+        <p>{{passwordReset}}</p>
+    </div>
+{{/if}}

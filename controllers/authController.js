@@ -32,9 +32,9 @@ const logout = (req,res,next) => {
 
 const verifyEmail = async (req,res) =>{
     let token = req.params.token;
-    let userID = jwt.verify(token, 'mySecretKey');
+    let userID = jwt.verify(token, process.env.JWT_SECRET);
     await User.findByIdAndUpdate(userID,{$set:{verified: true}});
-    req.flash('success','Your email has been verified successfully');
+    req.flash('successVerification','Your email has been verified successfully');
     res.redirect('/');
 };
 
@@ -70,13 +70,13 @@ const resetPasswordIndex = (req,res)=>{
 
 const resetPassword = async (req,res) =>{
     let token = req.params.token;
-    let userID = jwt.verify(token, 'mySecretKey');
+    let userID = jwt.verify(token, process.env.JWT_SECRET);
     let user = await User.findById(userID);
     if(req.body.password === req.body.confirmPassword){
         user.password = req.body.password;
         await user.save();
-        req.flash('success','Your password has been reset successfully');
-        res.redirect('back');
+        req.flash('successPasswordReset','Your password has been reset successfully');
+        res.redirect('/');
     }
     req.flash('error','Passwords do not match');
     res.redirect('back');

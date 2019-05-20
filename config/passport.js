@@ -40,6 +40,7 @@ passport.use('local.signup', new LocalStrategy({
             const url = `http://localhost:3000/user/verify/${token}`;
             let mailContent = `hey ${newUser.name},you are almost ready to start enjoying FlixGo, Simply click the link below to verify your email address`;
             sendEmail(newUser.email, 'Email Confirmation', mailContent, url);
+            req.flash('successVerification','An Email Verification has been sent to your email, please verify your email');
             return done(null, newUser);
         } catch (err) {
             return done(err);
