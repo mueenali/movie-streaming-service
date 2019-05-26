@@ -117,7 +117,7 @@
                     <!-- end content title -->
 
                     <!-- content tabs nav -->
-                    <ul class="nav nav-tabs content__tabs" id="content__tabs" role="tablist">
+                    <ul class="nav nav-pills content__tabs" id="content__tabs" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a>
                         </li>
@@ -140,8 +140,6 @@
                                 <li class="nav-item"><a class="nav-link active" id="1-tab" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Comments</a></li>
 
                                 <li class="nav-item"><a class="nav-link" id="2-tab" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false">Reviews</a></li>
-
-                                <li class="nav-item"><a class="nav-link" id="3-tab" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">Photos</a></li>
                             </ul>
                         </div>
                     </div>
@@ -155,8 +153,8 @@
         <div class="row">
             <div class="col-12 col-lg-8 col-xl-8">
                 <!-- content tabs -->
-                <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
+                <div class="tab-content clearfix" id="myTabContent">
+                    <div class="tab-pane active" id="tab-1" role="tabpanel" aria-labelledby="1-tab">
                         <div class="row">
                             <!-- comments -->
 
@@ -189,7 +187,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
+                    <div class="tab-pane active" id="tab-2" role="tabpanel" aria-labelledby="2-tab">
                         <div class="row">
                             <!-- reviews -->
                             <div class="col-12">
@@ -225,208 +223,9 @@
                             <!-- end reviews -->
                         </div>
                     </div>
-
-                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="3-tab">
-                        <!-- project gallery -->
-                        <div class="gallery" itemscope>
-                            <div class="row">
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-1.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-1.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 1</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-2.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-2.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 2</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-3.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-3.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 3</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-4.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-4.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 4</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-5.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-5.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 5</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-
-                                <!-- gallery item -->
-                                <figure class="col-12 col-sm-6 col-xl-4" itemprop="associatedMedia" itemscope>
-                                    <a href="img/gallery/project-6.jpg" itemprop="contentUrl" data-size="1920x1280">
-                                        <img src="img/gallery/project-6.jpg" itemprop="thumbnail" alt="Image description" />
-                                    </a>
-                                    <figcaption itemprop="caption description">Some image caption 6</figcaption>
-                                </figure>
-                                <!-- end gallery item -->
-                            </div>
-                        </div>
-                        <!-- end project gallery -->
-                    </div>
                 </div>
                 <!-- end content tabs -->
             </div>
-
-            <!-- sidebar -->
-            <div class="col-12 col-lg-4 col-xl-4">
-                <div class="row">
-                    <!-- section title -->
-                    <div class="col-12">
-                        <h2 class="section__title section__title--sidebar">You may also like...</h2>
-                    </div>
-                    <!-- end section title -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-                                <span class="card__category">
-										<a href="#">Action</a>
-										<a href="#">Triler</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover2.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Benched</a></h3>
-                                <span class="card__category">
-										<a href="#">Comedy</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover3.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Whitney</a></h3>
-                                <span class="card__category">
-										<a href="#">Romance</a>
-										<a href="#">Drama</a>
-										<a href="#">Music</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>6.3</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover4.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Blindspotting</a></h3>
-                                <span class="card__category">
-										<a href="#">Comedy</a>
-										<a href="#">Drama</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.9</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover5.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">I Dream in Another Language</a></h3>
-                                <span class="card__category">
-										<a href="#">Action</a>
-										<a href="#">Triler</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>8.4</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-
-                    <!-- card -->
-                    <div class="col-6 col-sm-4 col-lg-6">
-                        <div class="card">
-                            <div class="card__cover">
-                                <img src="img/covers/cover6.jpg" alt="">
-                                <a href="#" class="card__play">
-                                    <i class="icon ion-ios-play"></i>
-                                </a>
-                            </div>
-                            <div class="card__content">
-                                <h3 class="card__title"><a href="#">Benched</a></h3>
-                                <span class="card__category">
-										<a href="#">Comedy</a>
-									</span>
-                                <span class="card__rate"><i class="icon ion-ios-star"></i>7.1</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end card -->
-                </div>
-            </div>
-            <!-- end sidebar -->
         </div>
     </div>
 </section>
