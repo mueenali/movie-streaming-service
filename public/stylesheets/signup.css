@@ -1,0 +1,21 @@
+
+#signUpForm .short{
+    font-weight:bold;
+    color:#FF0000;
+    font-size:larger;
+}
+#signUpForm .weak{
+    font-weight:bold;
+    color:orange;
+    font-size:larger;
+}
+#signUpForm .good{
+    font-weight:bold;
+    color:#2D98F3;
+    font-size:larger;
+}
+#signUpForm .strong{
+    font-weight:bold;
+    color: limegreen;
+    font-size:larger;
+}

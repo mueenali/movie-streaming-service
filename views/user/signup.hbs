@@ -2,14 +2,13 @@
 <html lang="en">
 {{> header}}
 <body class="body">
-
 <div class="sign section--bg" data-bg="/images/section/section.jpg">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="sign__content">
                     <!-- registration form -->
-                    <form method="post" action="/user/signup" class="sign__form">
+                    <form id="signUpForm" method="post" action="/user/signup" class="sign__form">
                         <a href="index-2.html" class="sign__logo">
                             <img src="/images/logo.svg" alt="">
                         </a>
@@ -23,9 +22,9 @@
                         </div>
 
                         <div class="sign__group">
-                            <input type="password" class="sign__input" placeholder="Password" name="password">
+                            <input type="password" id="pass" class="sign__input" placeholder="Password" name="password">
                         </div>
-
+                        <span id="result"></span>
                         <div class="sign__group sign__group--checkbox">
                             <input id="remember" name="remember" type="checkbox" checked="checked" required>
                             <label for="remember">I agree to the <a href="#">Privacy Policy</a></label>
@@ -42,6 +41,7 @@
         </div>
     </div>
 </div>
+
 {{> scripts}}
 </body>
 </html>
